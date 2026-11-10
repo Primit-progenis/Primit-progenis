@@ -13,7 +13,7 @@
 
 <p align="center">
   <a href="https://primit-progenis.github.io/Primit-progenis/">
-    <img src="./assets/water-lilies.png" alt="Original Monet-inspired water-lily pond artwork. Open the interactive pond homepage to see ripples and particles follow the cursor." width="100%" />
+    <img src="./assets/profile-newspaper.gif" alt="Animated newspaper portrait with a small profile avatar and Monet-inspired water-lily pond." width="100%" />
   </a>
 </p>
 
