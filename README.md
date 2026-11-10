@@ -13,7 +13,7 @@
 
 <p align="center">
   <a href="https://primit-progenis.github.io/Primit-progenis/">
-    <img src="./assets/profile-newspaper.gif" alt="Animated newspaper portrait with a small profile avatar and Monet-inspired water-lily pond." width="100%" />
+    <img src="./assets/profile-newspaper-v2.gif" alt="Animated newspaper portrait with a small profile avatar and Monet-inspired water-lily pond." width="100%" />
   </a>
 </p>
 
