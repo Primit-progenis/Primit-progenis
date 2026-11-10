@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#15172d" />
+  <meta name="description" content="An interactive water-lily pond artwork by Primit Mistry, inspired by Claude Monet." />
+  <title>A Pond in Motion — Primit Mistry</title>
+  <style>
+    :root { color-scheme: dark; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    * { box-sizing: border-box; }
+    body {
+      min-height: 100vh; margin: 0; padding: clamp(18px, 4vw, 56px);
+      display: grid; place-items: center; color: #f5f1ff;
+      background: radial-gradient(ellipse at 50% 20%, #34335c 0%, #1b1b36 48%, #111221 100%);
+    }
+    main { width: min(1120px, 100%); }
+    header { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin: 0 0 18px; }
+    h1 { margin: 0; font: 500 clamp(1.65rem, 4vw, 2.8rem)/1.1 Georgia, "Times New Roman", serif; letter-spacing: .01em; }
+    .subtitle { margin: 8px 0 0; color: #c8c2de; font-size: .97rem; }
+    .back { color: #ddd1ff; text-decoration: none; border-bottom: 1px solid #a994e7; padding-bottom: 3px; white-space: nowrap; }
+    .back:hover, .back:focus-visible { color: white; border-color: white; }
+    .pond {
+      position: relative; overflow: hidden; width: 100%; aspect-ratio: 3 / 2;
+      border: 1px solid rgba(232, 224, 255, .32); border-radius: 16px;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, .4); background: #333c5c;
+      touch-action: manipulation;
+    }
+    .pond img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    .pond canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; cursor: crosshair; }
+    .pond canvas:focus-visible { outline: 3px solid #e4d6ff; outline-offset: -5px; }
+    .hint { margin: 14px 2px 0; text-align: center; color: #d7d1e8; font-size: .95rem; }
+    footer { margin-top: 32px; padding-top: 18px; border-top: 1px solid rgba(219, 211, 255, .2); color: #aaa6bd; font-size: .84rem; text-align: center; }
+    @media (max-width: 560px) {
+      header { align-items: start; flex-direction: column; gap: 12px; }
+      .pond { border-radius: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div>
+        <h1>A Pond in Motion</h1>
+        <p class="subtitle">An original digital homage to Monet’s water-lily paintings.</p>
+      </div>
+      <a class="back" href="https://github.com/Primit-progenis">Back to my GitHub profile</a>
+    </header>
+
+    <div class="pond">
+      <img src="./assets/water-lilies.png" alt="An original Impressionist-style pond with water lilies and cool violet reflections." />
+      <canvas id="water" tabindex="0" role="button" aria-label="Interactive water-lily pond. Click or tap the water, or press Enter or Space, to create ripples." aria-describedby="hint"></canvas>
+    </div>
+    <p class="hint" id="hint">Click or tap the water to send ripples across the pond. Keyboard: focus the painting, then press Enter or Space.</p>
+
+    <footer>Original artwork generated for this profile. Inspired by Claude Monet’s Water Lilies; it is not a reproduction of a specific painting.</footer>
+  </main>
+  <script>
+    const canvas = document.querySelector("#water");
+    const context = canvas.getContext("2d");
+    const pond = canvas.parentElement;
+    const ripples = [];
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    function resizeCanvas() {
+      const bounds = pond.getBoundingClientRect();
+      const scale = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.round(bounds.width * scale);
+      canvas.height = Math.round(bounds.height * scale);
+      context.setTransform(scale, 0, 0, scale, 0, 0);
+    }
+    new ResizeObserver(resizeCanvas).observe(pond);
+    resizeCanvas();
+
+    function addRipple(x, y) {
+      const started = performance.now();
+      for (let ring = 0; ring < 3; ring++) {
+        ripples.push({ x, y, started: started + ring * 260, ring });
+      }
+      requestAnimationFrame(drawRipples);
+    }
+
+    let framePending = false;
+    function drawRipples(now) {
+      if (framePending) return;
+      framePending = true;
+      requestAnimationFrame((time) => {
+        framePending = false;
+        const bounds = pond.getBoundingClientRect();
+        const width = bounds.width;
+        const height = bounds.height;
+        context.clearRect(0, 0, width, height);
+        const duration = reducedMotion ? 650 : 1900;
+
+        for (let i = ripples.length - 1; i >= 0; i--) {
+          const ripple = ripples[i];
+          const elapsed = time - ripple.started;
+          if (elapsed < 0) continue;
+          const progress = elapsed / duration;
+          if (progress >= 1) {
+            ripples.splice(i, 1);
+            continue;
+          }
+
+          const radius = 12 + progress * Math.min(width, height) * .42;
+          const wobble = Math.sin(progress * Math.PI * 5 + ripple.ring) * 2;
+          context.beginPath();
+          context.ellipse(ripple.x, ripple.y, radius, radius * .36 + wobble, 0, 0, Math.PI * 2);
+          context.strokeStyle = `rgba(239, 224, 255, ${(1 - progress) * .62})`;
+          context.lineWidth = 1.1 + (1 - progress) * 1.8;
+          context.stroke();
+
+          context.beginPath();
+          context.ellipse(ripple.x, ripple.y, radius * .72, radius * .25 + wobble * .5, 0, 0, Math.PI * 2);
+          context.strokeStyle = `rgba(185, 211, 235, ${(1 - progress) * .34})`;
+          context.lineWidth = 1;
+          context.stroke();
+        }
+
+        if (ripples.length) drawRipples(time);
+      });
+    }
+
+    canvas.addEventListener("pointerdown", (event) => {
+      const bounds = canvas.getBoundingClientRect();
+      addRipple(event.clientX - bounds.left, event.clientY - bounds.top);
+    });
+    canvas.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        addRipple(pond.clientWidth / 2, pond.clientHeight / 2);
+      }
+    });
+  </script>
+</body>
+</html>
