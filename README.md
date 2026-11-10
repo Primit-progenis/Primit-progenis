@@ -1,8 +1,8 @@
 <div align="center">
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=26&pause=1000&color=7C5CFF&center=true&vCenter=true&width=720&lines=Hi%2C+I'm+Primit+Mistry;BTech+Data+Science+Student;Exploring+AI%2C+ML+%26+LLMs;Building+with+Arduino+%26+Code;Art+lover" alt="Animated introduction: Primit Mistry, data science student, exploring AI, ML, LLMs, Arduino and art" />
+# Primit Mistry
 
-<br/>
+**BTech Data Science student · AI, machine learning, LLMs · Arduino · Art**
 
 ![Profile Views](https://komarev.com/ghpvc/?username=Primit-progenis&label=Profile+Views&color=7C5CFF&style=flat)
 ![Followers](https://img.shields.io/github/followers/Primit-progenis?style=flat&logo=github&color=7C5CFF)
@@ -13,11 +13,11 @@
 
 <p align="center">
   <a href="https://primit-progenis.github.io/Primit-progenis/">
-    <img src="./assets/water-lilies.png" alt="Original Monet-inspired water-lily pond artwork. Click to open the interactive pond and create ripples." width="100%" />
+    <img src="./assets/water-lilies.png" alt="Original Monet-inspired water-lily pond artwork. Open the interactive pond homepage to see ripples and particles follow the cursor." width="100%" />
   </a>
 </p>
 
-<p align="center"><a href="https://primit-progenis.github.io/Primit-progenis/"><b>Click the artwork to explore the pond and make ripples</b></a></p>
+<p align="center"><a href="https://primit-progenis.github.io/Primit-progenis/"><b>Open the interactive pond homepage</b></a></p>
 
 ---
 
