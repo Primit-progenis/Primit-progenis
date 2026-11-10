@@ -71,57 +71,76 @@ Data structures and algorithms, object-oriented programming, and web development
 
 ---
 
-## Projects
+## Public Repositories by Category
 
 <details>
-<summary><b>Fenceline — Smart-Home Security</b></summary>
+<summary><b>AI and Machine Learning</b></summary>
 <br/>
 
-A collaborative project for the ACE hackathon at NMIMS. Its dashboard demonstrates simulated smart-home threat scoring, access passes, and network containment previews.
-
-[View repository](https://github.com/Primit-progenis/Fenceline-Cybersec)
+- **Teachable Machine Image Demo** — browser-based webcam image classification with TensorFlow.js.  
+  [View repository](https://github.com/Primit-progenis/teachable-model)
 
 </details>
 
 <details>
-<summary><b>Teachable Machine Image Demo</b></summary>
+<summary><b>Voice Assistants</b></summary>
 <br/>
 
-A browser-based experiment that loads an exported image model, classifies webcam frames, and displays class probabilities.
-
-[View repository](https://github.com/Primit-progenis/teachable-model)
+- **Luna AI** — Python voice assistant with speech input, spoken responses, Wikipedia summaries, time, and browser shortcuts.  
+  [View repository](https://github.com/Primit-progenis/Luna-AI)
 
 </details>
 
 <details>
-<summary><b>Video Chat Room</b></summary>
+<summary><b>Cybersecurity and Smart Home</b></summary>
 <br/>
 
-A room-based WebRTC demo with browser audio/video, WebSocket signaling, and peer-to-peer chat.
-
-[View repository](https://github.com/Primit-progenis/video-chat)
+- **Fenceline** — collaborative ACE hackathon project at NMIMS, demonstrating simulated smart-home threat scoring, guest access, and containment previews.  
+  [View repository](https://github.com/Primit-progenis/Fenceline-Cybersec)
 
 </details>
 
 <details>
-<summary><b>Luna AI</b></summary>
+<summary><b>Web Apps and Communications</b></summary>
 <br/>
 
-An early Python voice-assistant experiment with speech input, spoken responses, time and Wikipedia queries, and browser shortcuts.
-
-[View repository](https://github.com/Primit-progenis/Luna-AI)
+- **Video Chat Room** — room-based WebRTC audio/video and peer-to-peer chat with a WebSocket signaling server.  
+  [View repository](https://github.com/Primit-progenis/video-chat)
 
 </details>
 
 <details>
-<summary><b>Snake Game</b></summary>
+<summary><b>Games and Game Libraries</b></summary>
 <br/>
 
-A classic grid-based Snake game built with Python and Pygame.
-
-[View repository](https://github.com/Primit-progenis/Snake-Game)
+- **Snake Game** — Python and Pygame grid-based game.  
+  [View repository](https://github.com/Primit-progenis/Snake-Game)
+- **Pygame** — public fork of the upstream Pygame project.  
+  [View fork](https://github.com/Primit-progenis/pygame)
 
 </details>
+
+<details>
+<summary><b>Programming Starters</b></summary>
+<br/>
+
+- **hello-world** — starter repository for programming experiments.  
+  [View repository](https://github.com/Primit-progenis/hello-world)
+- **java** — Java learning repository, currently without source files.  
+  [View repository](https://github.com/Primit-progenis/java)
+
+</details>
+
+<details>
+<summary><b>Profile and Portfolio</b></summary>
+<br/>
+
+- **Primit-progenis** — this profile README and the interactive water-lily page.  
+  [View profile repository](https://github.com/Primit-progenis/Primit-progenis) · [Open the interactive page](https://primit-progenis.github.io/Primit-progenis/)
+
+</details>
+
+## Other Explorations
 
 <details>
 <summary><b>EchoBand and Quantum Tech</b></summary>
@@ -130,7 +149,6 @@ A classic grid-based Snake game built with Python and Pygame.
 Alongside my public repositories, I have explored a biotech wearable concept called EchoBand and early ideas in quantum technology.
 
 </details>
-
 ---
 
 ## Art I Love
