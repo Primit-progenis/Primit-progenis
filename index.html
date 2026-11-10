@@ -3,134 +3,485 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#15172d" />
-  <meta name="description" content="An interactive water-lily pond artwork by Primit Mistry, inspired by Claude Monet." />
-  <title>A Pond in Motion — Primit Mistry</title>
+  <meta name="theme-color" content="#eee8dc" />
+  <meta name="description" content="Primit Mistry's profile homepage: data science, AI, electronics, art, and an interactive Monet-inspired water-lily pond." />
+  <title>Primit Mistry — Field Notes</title>
   <style>
-    :root { color-scheme: dark; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    :root {
+      color-scheme: light;
+      font-family: Georgia, "Times New Roman", serif;
+      --paper: #eee8dc;
+      --ink: #27241f;
+      --muted: #6e685c;
+      --rule: #918979;
+    }
     * { box-sizing: border-box; }
+    html, body { min-height: 100%; margin: 0; }
     body {
-      min-height: 100vh; margin: 0; padding: clamp(18px, 4vw, 56px);
-      display: grid; place-items: center; color: #f5f1ff;
-      background: radial-gradient(ellipse at 50% 20%, #34335c 0%, #1b1b36 48%, #111221 100%);
+      min-height: 100vh;
+      background: #191c27;
+      color: var(--ink);
     }
-    main { width: min(1120px, 100%); }
-    header { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin: 0 0 18px; }
-    h1 { margin: 0; font: 500 clamp(1.65rem, 4vw, 2.8rem)/1.1 Georgia, "Times New Roman", serif; letter-spacing: .01em; }
-    .subtitle { margin: 8px 0 0; color: #c8c2de; font-size: .97rem; }
-    .back { color: #ddd1ff; text-decoration: none; border-bottom: 1px solid #a994e7; padding-bottom: 3px; white-space: nowrap; }
-    .back:hover, .back:focus-visible { color: white; border-color: white; }
-    .pond {
-      position: relative; overflow: hidden; width: 100%; aspect-ratio: 3 / 2;
-      border: 1px solid rgba(232, 224, 255, .32); border-radius: 16px;
-      box-shadow: 0 24px 80px rgba(0, 0, 0, .4); background: #333c5c;
-      touch-action: manipulation;
+    .home {
+      min-height: 100vh;
+      max-width: 1680px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(340px, .72fr) minmax(0, 1.28fr);
+      background: var(--paper);
+      box-shadow: 0 0 90px rgba(0,0,0,.34);
     }
-    .pond img { display: block; width: 100%; height: 100%; object-fit: cover; }
-    .pond canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; cursor: crosshair; }
-    .pond canvas:focus-visible { outline: 3px solid #e4d6ff; outline-offset: -5px; }
-    .hint { margin: 14px 2px 0; text-align: center; color: #d7d1e8; font-size: .95rem; }
-    footer { margin-top: 32px; padding-top: 18px; border-top: 1px solid rgba(219, 211, 255, .2); color: #aaa6bd; font-size: .84rem; text-align: center; }
-    @media (max-width: 560px) {
-      header { align-items: start; flex-direction: column; gap: 12px; }
-      .pond { border-radius: 10px; }
+    .paper {
+      min-height: 100vh;
+      padding: clamp(28px, 4vw, 64px) clamp(26px, 4vw, 58px);
+      display: flex;
+      flex-direction: column;
+      background:
+        linear-gradient(90deg, rgba(75,63,42,.035), transparent 15%, transparent 93%, rgba(75,63,42,.045)),
+        repeating-linear-gradient(0deg, rgba(70,60,42,.018) 0 1px, transparent 1px 5px),
+        var(--paper);
+      border-right: 1px solid rgba(34,31,25,.22);
+    }
+    .masthead {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 11px;
+      border-bottom: 3px double var(--rule);
+      color: var(--muted);
+      font: 700 .67rem/1.2 ui-sans-serif, system-ui, sans-serif;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    .edition { text-align: right; white-space: nowrap; }
+    .nameplate {
+      padding: 21px 0 16px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .nameplate h1 {
+      margin: 0;
+      font-size: clamp(3rem, 5.4vw, 5.8rem);
+      font-weight: 500;
+      line-height: .78;
+      letter-spacing: -.065em;
+      text-transform: uppercase;
+    }
+    .nameplate h1 span {
+      display: block;
+      margin-top: 10px;
+      font-style: italic;
+      font-weight: 400;
+      letter-spacing: -.08em;
+    }
+    .byline {
+      margin-top: 17px;
+      color: var(--muted);
+      font: 700 .68rem/1.4 ui-sans-serif, system-ui, sans-serif;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    .story { padding: 24px 0 14px; }
+    .section-label {
+      margin: 0 0 10px;
+      color: var(--muted);
+      font: 700 .65rem/1.2 ui-sans-serif, system-ui, sans-serif;
+      letter-spacing: .17em;
+      text-transform: uppercase;
+    }
+    .headline {
+      min-height: 2.2em;
+      margin: 0 0 15px;
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-weight: 500;
+      line-height: 1.04;
+      letter-spacing: -.035em;
+    }
+    .deck {
+      min-height: 5.5em;
+      margin: 0;
+      color: #464137;
+      font-size: 1.04rem;
+      line-height: 1.58;
+    }
+    .typed::after {
+      content: "▍";
+      display: inline-block;
+      margin-left: 2px;
+      color: #796743;
+      animation: caret 1s steps(2, start) infinite;
+    }
+    .typed.done::after { content: ""; animation: none; }
+    @keyframes caret { to { visibility: hidden; } }
+    .column-rule { margin: 22px 0 18px; border: 0; border-top: 3px double var(--rule); }
+    .notes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 17px;
+      margin-top: 0;
+    }
+    .note {
+      min-height: 104px;
+      padding-right: 14px;
+      border-right: 1px solid rgba(90,80,63,.4);
+    }
+    .note:last-child { border: 0; padding-right: 0; }
+    .note h2 {
+      margin: 0 0 7px;
+      font: 700 .64rem/1.2 ui-sans-serif, system-ui, sans-serif;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .note p { min-height: 4.1em; margin: 0; color: #565044; font-size: .91rem; line-height: 1.5; }
+    .paper-footer {
+      margin-top: auto;
+      padding-top: 18px;
+      border-top: 1px solid var(--rule);
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 12px;
+      color: var(--muted);
+      font: 700 .65rem/1.4 ui-sans-serif, system-ui, sans-serif;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .paper-footer a {
+      color: var(--ink);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+      white-space: nowrap;
+    }
+    .gallery {
+      min-width: 0;
+      min-height: 100vh;
+      padding: clamp(20px, 3vw, 46px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: linear-gradient(145deg, #24283a, #141722 72%);
+    }
+    .art-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 3 / 2;
+      overflow: hidden;
+      border: 1px solid rgba(238,232,220,.45);
+      background: #343c59;
+      box-shadow: 0 24px 80px rgba(0,0,0,.42);
+    }
+    .art-frame img, .art-frame canvas {
+      position: absolute;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    .art-frame img { object-fit: cover; transition: opacity .2s ease; }
+    .art-frame canvas {
+      opacity: 0;
+      cursor: crosshair;
+      touch-action: pan-y;
+    }
+    .art-frame canvas:focus-visible { outline: 3px solid #f4e7ff; outline-offset: -5px; }
+    .art-frame canvas.ready { opacity: 1; }
+    .art-frame img.enhanced { opacity: 0; }
+    .caption {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 15px;
+      color: #d5d0c8;
+      font: 700 .67rem/1.5 ui-sans-serif, system-ui, sans-serif;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+    .caption span:last-child { text-align: right; font-weight: 500; letter-spacing: .08em; }
+    .credit {
+      margin: 10px 0 0;
+      color: #9997a2;
+      font: .78rem/1.5 ui-sans-serif, system-ui, sans-serif;
+    }
+    @media (max-width: 880px) {
+      .home { grid-template-columns: 1fr; }
+      .paper { min-height: auto; padding: 28px clamp(22px, 6vw, 52px); }
+      .nameplate h1 { font-size: clamp(3.4rem, 12vw, 5.5rem); }
+      .gallery { min-height: 0; padding: clamp(18px, 4vw, 34px); }
+      .paper-footer { margin-top: 24px; }
+    }
+    @media (max-width: 500px) {
+      .masthead { letter-spacing: .1em; }
+      .edition { max-width: 45%; white-space: normal; }
+      .notes { grid-template-columns: 1fr; gap: 14px; }
+      .note, .note:last-child { min-height: 0; padding: 0 0 13px; border: 0; border-bottom: 1px solid rgba(90,80,63,.35); }
+      .note:last-child { border: 0; }
+      .caption { flex-direction: column; gap: 4px; }
+      .caption span:last-child { text-align: left; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
+      .art-frame img { transition: none; }
     }
   </style>
 </head>
 <body>
-  <main>
-    <header>
-      <div>
-        <h1>A Pond in Motion</h1>
-        <p class="subtitle">An original digital homage to Monet’s water-lily paintings.</p>
+  <main class="home">
+    <aside class="paper" aria-label="Profile introduction styled as a newspaper">
+      <div class="masthead">
+        <span>The Student Journal</span>
+        <span class="edition">Profile edition · No. 01</span>
       </div>
-      <a class="back" href="https://github.com/Primit-progenis">Back to my GitHub profile</a>
-    </header>
 
-    <div class="pond">
-      <img src="./assets/water-lilies.png" alt="An original Impressionist-style pond with water lilies and cool violet reflections." />
-      <canvas id="water" tabindex="0" role="button" aria-label="Interactive water-lily pond. Click or tap the water, or press Enter or Space, to create ripples." aria-describedby="hint"></canvas>
-    </div>
-    <p class="hint" id="hint">Click or tap the water to send ripples across the pond. Keyboard: focus the painting, then press Enter or Space.</p>
+      <div class="nameplate">
+        <h1>Primit<span>Mistry</span></h1>
+        <div class="byline">Data Science · AI · Electronics · Art</div>
+      </div>
 
-    <footer>Original artwork generated for this profile. Inspired by Claude Monet’s Water Lilies; it is not a reproduction of a specific painting.</footer>
+      <section class="story">
+        <p class="section-label">A note from the desk</p>
+        <h2 class="headline typed" data-type="headline">A curious mind, between data and art.</h2>
+        <p class="deck typed" data-type="deck">I’m a BTech Data Science student exploring AI, machine learning and LLMs. I like building with code and Arduino, then stepping back to look at the world through art.</p>
+      </section>
+
+      <hr class="column-rule" />
+
+      <section class="notes" aria-label="Current interests">
+        <article class="note">
+          <h2>On the workbench</h2>
+          <p class="typed" data-type="bench">Model training, smart-home security, webcam experiments and ideas for wearable technology.</p>
+        </article>
+        <article class="note">
+          <h2>Off the clock</h2>
+          <p class="typed" data-type="art">Klimt, Van Gogh, Caravaggio and Banksy. Mostly vintage expressionism, always a little color.</p>
+        </article>
+      </section>
+
+      <footer class="paper-footer">
+        <span>Field notes from semester three</span>
+        <a href="mailto:mprimit123@gmail.com">Write to Primit</a>
+      </footer>
+    </aside>
+
+    <section class="gallery" aria-label="Interactive water-lily artwork">
+      <div class="art-frame">
+        <img id="pond-image" src="./assets/water-lilies.png" alt="An original Impressionist-style pond with water lilies and lavender reflections." />
+        <canvas id="pond-canvas" tabindex="0" role="img" aria-label="Move your cursor over the pond to ripple the painting and scatter tiny fragments of color. On touchscreens, drag a finger across the artwork." />
+      </div>
+      <div class="caption">
+        <span>Water lilies · study in motion</span>
+        <span>Move through the painting to disturb the surface</span>
+      </div>
+      <p class="credit">An original digital homage to Claude Monet’s water-lily paintings—not a reproduction of a specific canvas.</p>
+    </section>
   </main>
+
   <script>
-    const canvas = document.querySelector("#water");
-    const context = canvas.getContext("2d");
-    const pond = canvas.parentElement;
-    const ripples = [];
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    (() => {
+      const image = document.querySelector("#pond-image");
+      const canvas = document.querySelector("#pond-canvas");
+      const context = canvas.getContext("2d");
+      const frame = canvas.parentElement;
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const pulses = [];
+      let previous = null;
+      let animationFrame = 0;
+      let scale = 1;
 
-    function resizeCanvas() {
-      const bounds = pond.getBoundingClientRect();
-      const scale = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = Math.round(bounds.width * scale);
-      canvas.height = Math.round(bounds.height * scale);
-      context.setTransform(scale, 0, 0, scale, 0, 0);
-    }
-    new ResizeObserver(resizeCanvas).observe(pond);
-    resizeCanvas();
+      function typeNewspaper() {
+        const lines = [
+          ...document.querySelectorAll('[data-type="headline"], [data-type="deck"], [data-type="bench"], [data-type="art"]')
+        ];
+        if (reduceMotion) return;
+        const originals = lines.map((line) => line.textContent);
+        lines.forEach((line) => { line.textContent = ""; line.classList.add("typed"); });
 
-    function addRipple(x, y) {
-      const started = performance.now();
-      for (let ring = 0; ring < 3; ring++) {
-        ripples.push({ x, y, started: started + ring * 260, ring });
+        let lineIndex = 0;
+        function typeNextLine() {
+          if (lineIndex >= lines.length) return;
+          const line = lines[lineIndex];
+          const text = originals[lineIndex];
+          line.classList.add("typing");
+          let charIndex = 0;
+          const speed = line.matches(".headline") ? 43 : 22;
+          const timer = window.setInterval(() => {
+            line.textContent = text.slice(0, ++charIndex);
+            if (charIndex >= text.length) {
+              window.clearInterval(timer);
+              line.classList.remove("typing");
+              line.classList.add("done");
+              lineIndex++;
+              window.setTimeout(typeNextLine, 240);
+            }
+          }, speed);
+        }
+        typeNextLine();
       }
-      requestAnimationFrame(drawRipples);
-    }
 
-    let framePending = false;
-    function drawRipples(now) {
-      if (framePending) return;
-      framePending = true;
-      requestAnimationFrame((time) => {
-        framePending = false;
-        const bounds = pond.getBoundingClientRect();
-        const width = bounds.width;
-        const height = bounds.height;
+      function resizeCanvas() {
+        const bounds = frame.getBoundingClientRect();
+        scale = Math.min(window.devicePixelRatio || 1, 1.35);
+        canvas.width = Math.max(1, Math.round(bounds.width * scale));
+        canvas.height = Math.max(1, Math.round(bounds.height * scale));
+        context.setTransform(scale, 0, 0, scale, 0, 0);
+        context.drawImage(image, 0, 0, bounds.width, bounds.height);
+        previous = null;
+        pulses.length = 0;
+      }
+
+      function newPulse(x, y, vx, vy) {
+        const now = performance.now();
+        const fragments = [];
+        const w = canvas.width;
+        const h = canvas.height;
+        for (let i = 0; i < 20; i++) {
+          const angle = Math.random() * Math.PI * 2;
+          const distance = 4 + Math.random() * 26;
+          const size = 3 + Math.random() * 5;
+          const sx = Math.max(0, Math.min(w - size, x + Math.cos(angle) * distance));
+          const sy = Math.max(0, Math.min(h - size, y + Math.sin(angle) * distance));
+          fragments.push({
+            sx, sy, size, angle,
+            drift: 24 + Math.random() * 92,
+            side: (Math.random() - .5) * 32,
+            spin: (Math.random() - .5) * 8
+          });
+        }
+        pulses.push({ x, y, vx, vy, born: now, fragments });
+        if (pulses.length > 7) pulses.shift();
+        if (!animationFrame) animationFrame = requestAnimationFrame(draw);
+      }
+
+      function addTrail(from, to) {
+        const dx = to.x - from.x;
+        const dy = to.y - from.y;
+        const distance = Math.hypot(dx, dy);
+        const steps = Math.min(6, Math.max(1, Math.floor(distance / 15)));
+        for (let i = 1; i <= steps; i++) {
+          const t = i / steps;
+          newPulse(from.x + dx * t, from.y + dy * t, dx / Math.max(distance, 1), dy / Math.max(distance, 1));
+        }
+      }
+
+      function draw(now) {
+        animationFrame = 0;
+        const rect = frame.getBoundingClientRect();
+        const width = rect.width;
+        const height = rect.height;
+        context.setTransform(scale, 0, 0, scale, 0, 0);
         context.clearRect(0, 0, width, height);
-        const duration = reducedMotion ? 650 : 1900;
+        context.drawImage(image, 0, 0, width, height);
 
-        for (let i = ripples.length - 1; i >= 0; i--) {
-          const ripple = ripples[i];
-          const elapsed = time - ripple.started;
-          if (elapsed < 0) continue;
-          const progress = elapsed / duration;
-          if (progress >= 1) {
-            ripples.splice(i, 1);
-            continue;
+        const live = [];
+        for (const pulse of pulses) {
+          const age = (now - pulse.born) / 1050;
+          if (age >= 1) continue;
+          live.push(pulse);
+          const energy = Math.pow(1 - age, 1.35);
+          const radiusBase = age * Math.min(width, height) * .62;
+
+          // Replace narrow image rings with shifted samples, making the artwork itself bend around the cursor trail.
+          for (let ring = 0; ring < 3; ring++) {
+            const radius = radiusBase + 18 + ring * 18;
+            const innerRadius = Math.max(1, radius - 8);
+            context.save();
+            context.beginPath();
+            context.arc(pulse.x, pulse.y, radius, 0, Math.PI * 2);
+            context.arc(pulse.x, pulse.y, innerRadius, 0, Math.PI * 2, true);
+            context.clip("evenodd");
+            const offsetX = Math.cos(now * .012 + ring + pulse.vy * 4) * 7 * energy + pulse.vx * 4 * energy;
+            const offsetY = Math.sin(now * .013 + ring + pulse.vx * 4) * 5 * energy + pulse.vy * 3 * energy;
+            context.globalAlpha = .9 * energy;
+            context.drawImage(image, offsetX / scale, offsetY / scale, width, height);
+            context.restore();
           }
 
-          const radius = 12 + progress * Math.min(width, height) * .42;
-          const wobble = Math.sin(progress * Math.PI * 5 + ripple.ring) * 2;
-          context.beginPath();
-          context.ellipse(ripple.x, ripple.y, radius, radius * .36 + wobble, 0, 0, Math.PI * 2);
-          context.strokeStyle = `rgba(239, 224, 255, ${(1 - progress) * .62})`;
-          context.lineWidth = 1.1 + (1 - progress) * 1.8;
-          context.stroke();
+          // Bright image chips drift away from the pointer like a small particulate snap, then settle.
+          for (const fragment of pulse.fragments) {
+            const progress = age;
+            const travel = fragment.drift * progress;
+            const side = fragment.side * Math.sin(progress * Math.PI);
+            const destX = fragment.sx / scale + Math.cos(fragment.angle) * travel + pulse.vx * travel * .45 - Math.sin(fragment.angle) * side;
+            const destY = fragment.sy / scale + Math.sin(fragment.angle) * travel + pulse.vy * travel * .45 + Math.cos(fragment.angle) * side - progress * 12;
+            context.save();
+            context.globalAlpha = Math.max(0, (1 - progress) * .92);
+            context.filter = "brightness(1.35) saturate(1.2)";
+            context.drawImage(
+              image,
+              fragment.sx / scale, fragment.sy / scale, fragment.size / scale, fragment.size / scale,
+              destX, destY, fragment.size / scale, fragment.size / scale
+            );
+            context.restore();
+          }
 
-          context.beginPath();
-          context.ellipse(ripple.x, ripple.y, radius * .72, radius * .25 + wobble * .5, 0, 0, Math.PI * 2);
-          context.strokeStyle = `rgba(185, 211, 235, ${(1 - progress) * .34})`;
-          context.lineWidth = 1;
-          context.stroke();
+          // A few luminous specks accent the moving edge.
+          context.save();
+          context.globalCompositeOperation = "screen";
+          for (let dot = 0; dot < 9; dot++) {
+            const angle = dot * 2.399 + pulse.born * .001;
+            const radius = radiusBase * .28 + dot * 3;
+            const x = pulse.x / scale + Math.cos(angle) * radius;
+            const y = pulse.y / scale + Math.sin(angle) * radius * .62;
+            context.fillStyle = `rgba(239, 221, 255, ${energy * .54})`;
+            context.fillRect(x, y, 1.3, 1.3);
+          }
+          context.restore();
         }
-
-        if (ripples.length) drawRipples(time);
-      });
-    }
-
-    canvas.addEventListener("pointerdown", (event) => {
-      const bounds = canvas.getBoundingClientRect();
-      addRipple(event.clientX - bounds.left, event.clientY - bounds.top);
-    });
-    canvas.addEventListener("keydown", (event) => {
-      if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        addRipple(pond.clientWidth / 2, pond.clientHeight / 2);
+        pulses.splice(0, pulses.length, ...live);
+        if (pulses.length) animationFrame = requestAnimationFrame(draw);
       }
-    });
+
+      function pointerPosition(event) {
+        const rect = canvas.getBoundingClientRect();
+        return {
+          x: (event.clientX - rect.left) * canvas.width / rect.width,
+          y: (event.clientY - rect.top) * canvas.height / rect.height
+        };
+      }
+
+      canvas.addEventListener("pointermove", (event) => {
+        const point = pointerPosition(event);
+        if (previous) {
+          const distance = Math.hypot(point.x - previous.x, point.y - previous.y);
+          if (distance > 8) addTrail(previous, point);
+        } else {
+          newPulse(point.x, point.y, 0, 0);
+        }
+        previous = point;
+      });
+
+      canvas.addEventListener("pointerleave", () => { previous = null; });
+      canvas.addEventListener("pointerdown", (event) => {
+        const point = pointerPosition(event);
+        newPulse(point.x, point.y, 0, 0);
+      });
+      canvas.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          newPulse(canvas.width / 2, canvas.height / 2, 0, 0);
+        }
+      });
+
+      function start() {
+        resizeCanvas();
+        canvas.classList.add("ready");
+        image.classList.add("enhanced");
+        typeNewspaper();
+      }
+      if (image.complete && image.naturalWidth) start();
+      else image.addEventListener("load", start, { once: true });
+      new ResizeObserver(resizeCanvas).observe(frame);
+      window.addEventListener("resize", resizeCanvas);
+      if (reduceMotion) canvas.addEventListener("pointermove", (event) => {
+        const point = pointerPosition(event);
+        context.drawImage(image, 0, 0, frame.clientWidth, frame.clientHeight);
+        context.save();
+        context.beginPath();
+        context.arc(point.x / scale, point.y / scale, 38, 0, Math.PI * 2);
+        context.clip();
+        context.drawImage(image, -3, 0, frame.clientWidth, frame.clientHeight);
+        context.restore();
+      });
+    })();
   </script>
 </body>
 </html>
